@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- fontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!------------------>
+    <title>Turnos Semanal</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+      h1 {
+        background-image: linear-gradient(to right bottom, #7a8490, #68717b, #565e67, #444c53, #343a40);
+      }
+      td {
+        border: solid 1px gray;
+      }
+
+      tr {
+        text-align: center;
+      }
+      .activo {
+        background-color: #ffff66;
+      }
+
+      .diponibilidad100 {
+        background-color: #00FF2C;
+      }
+      .diponibilidad75 {
+        background-color: #C8FF00;
+      }
+      .diponibilidad50 {
+        background-color: #FFD300;
+      }
+      .diponibilidad25 {
+        background-color: #FF8500;
+      }
+      .diponibilidad0 {
+        background-color: #FF0000;
+      }
+      .footer {
+            background-color: #d9d9d9;
+            box-shadow: 0 .5rem 2.5rem rgba(0,0,0,2.15)!important
+      }
+      .cancelar {
+        display: none;
+        cursor: default;
+        color: red;
+      }
+      #borrar:hover{
+        cursor: pointer;
+      }
+      #borrar:hover span.notificacion {
+        display: block!important;
+        transition: all .7s ease-in-out;
+      }
+      .notificacion {
+            top: 15px;
+            left: 50px;
+            border: 2px solid gray;
+            transition: all .2s ease-in-out;
+            padding-left: 20px!important;
+            z-index: -1;
+        }
+      @media only screen and (max-width: 580px) {
+          table
+          {
+              font-size: 0.5em!important;
+          }
+      }
+    </style>
+</head>
+<body>
+    <h1 class="p-5 text-center text-white bg-dark">Agenda Semanal</h1>
+    <div class="fixed-top">
+        <div class="bg-light shadow rounded-circle d-inline-block p-3 m-1 border border-dark">
+            <a id="borrar" class="text-dark px-1 m-0" style="font-size: 24px;">
+                <i class="far fa-calendar-times"></i>
+                <span class="notificacion position-absolute rounded m-0 pb-1 p-1 bg-light" style="display: none;">
+                      Cancelar citas
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="container">
+      <div class="card shadow mx-auto m-5" style="max-width: 500px;">
+        <div class="card-header">
+          <h3>Horario de hoy</h3>
+        </div>
+        <div class="card-body">
+          <h2 class="dia text-center text-danger">Jueves</h2>
+          <ul class="reservacion p-0">
+          </ul>
+          <center>
+            <img class="w-100" src="loading-75.gif" alt="cargando.." style="max-width: 250px;">
+          </center>
+        </div>
+      </div>        
+    </div>
+
+    <div class="horario pb-5">
+      <table id="horario" class="table w-100 shadow-lg overflow-hidden mx-auto rounded" style="max-width: 950px">
+        <thead class="thead">
+          <tr class="vacantes">
+            <th scope="col">Vacante</th>
+            <th scope="col" class="diponibilidad100"></th>
+            <th scope="col" class="diponibilidad100"></th>
+            <th scope="col" class="diponibilidad100"></th>
+            <th scope="col" class="diponibilidad100"></th>
+            <th scope="col" class="diponibilidad100"></th>
+          </tr>
+          <tr class="dias bg-dark text-white">
+              <th scope="col">Hora</th>
+              <th scope="col">Lunes</th>
+              <th scope="col">Martes</th>
+              <th scope="col">Miercoles</th>
+              <th scope="col">Jueves</th>
+              <th scope="col">Viernes</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">8:00 am</th>
+            <td class="seleccion" id="1">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="2">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="3">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="4">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="5">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">9:00 am</th>
+            <td class="seleccion" id="6">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="7">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="8">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="9">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="10">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">10:00 am</th>
+            <td class="seleccion" id="11">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="12">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="13">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="14">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="15">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">11:00 am</th>
+            <td class="seleccion" id="14">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="15">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="16">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="17">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="18">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>
+          <tr class="bg-info">
+            <th scope="row">12:00 am</th>
+            <td>NO</td>
+            <td>DIS</td>
+            <td>PO</td>
+            <td>NI</td>
+            <td>BLE</td>
+          </tr>
+          <tr>
+            <th scope="row">1:00 pm</th>
+            <td class="seleccion" id="19">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="20">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="21">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="22">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="23">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2:00 pm</th>
+            <td class="seleccion" id="24">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="25">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="26">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="27">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="28">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>              
+          <tr>
+            <th scope="row">3:00 pm</th>
+            <td class="seleccion" id="29">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="30">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="31">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="32">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="33">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">4:00 pm</th>
+            <td class="seleccion" id="34">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="35">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="36">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="37">
+              <span class="cancelar">x</span>
+            </td>
+            <td class="seleccion" id="38">
+              <span class="cancelar">x</span>
+            </td>
+          </tr>                                          
+        </tbody>
+      </table>
+    </div>    
+
+    <div class="footer bg-dark fixed-bottom p-2">
+        <h6 class="text-center text-white m-0">Web made by Adriel Minyety Gonzalez</h6>
+    </div>
+
+<script src="app.js"></script>    
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
