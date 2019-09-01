@@ -274,6 +274,9 @@ class Interfaz {
             case 5:
             diaElement[0].innerText = "Viernes";
                 break;
+            default:
+                return false;
+                break;
         }
         return diaHoy;
     }
@@ -289,15 +292,23 @@ cargarEventListener();
 function cargarEventListener() {
     // actualiza el horario cada segundo.
     // update the schedule each second.
-    setInterval(() => {
-        UI.detectarDiaHoy();
+    // si no es lunes-viernes, no inicia app
+    // if is not monday-friday, the app doesn't start
+    if (UI.detectarDiaHoy() == false) {
+        alert("Es tu fin de semana, no tienes nada que hacer.. :)");
         UI.imprimirDisponibilidad();
         UI.imprimirCitasLocalStorage();
-        setTimeout(() => {
-            cargando.style.display = "none";
-            UI.imprimirReservacionesDeHoy();
-        }, 3000);
-    }, 1000);
+    } else {
+        setInterval(() => {
+            UI.detectarDiaHoy();
+            UI.imprimirDisponibilidad();
+            UI.imprimirCitasLocalStorage();
+            setTimeout(() => {
+                cargando.style.display = "none";
+                UI.imprimirReservacionesDeHoy();
+            }, 3000);
+        }, 1000);
+    }
     // valida si ha sido cliqueado una recervacion para añadirla o borrarla.
     // validate if has been clicked a reservation to add or delete it.
     horario.addEventListener("click", function leerRecervacion(e){
