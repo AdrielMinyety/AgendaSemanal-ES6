@@ -8,7 +8,7 @@ const vacantes = document.querySelectorAll(".vacantes")[0].children;
 const borrarBtn = document.getElementById("borrar");
 const cancelarBotones = document.querySelectorAll(".cancelar");
 const limpiar = document.getElementById("limpiar");
-const cargando = document.getElementsByTagName("img")[0];
+const cargando = document.getElementById("loading");
 // variables globales.
 //globals variables.
 var UI, recervaciones, usuario;
@@ -204,24 +204,30 @@ class Interfaz {
     imprimirCitasLocalStorage (){
         agendaCitas = new Cita;
         agendaCitas.obtenerCitasLocalStorage();
-        // imprime las reservationes del LS y pone los marcadores amarillos en el horario.
-        // print the reservationes from LS and it put the highlighter yellow in the schedule.
+        // Obtiene las reservas desde LocalStorage
+        // Retrieves reservations from LocalStorage
+        
         let horarioRecervado = horario.lastElementChild.children;
+        // Obtiene una referencia al último hijo de "horario" y sus elementos hijos, que representan los horarios disponibles
+        // Gets a reference to the last child of "horario" and its child elements, which represent the available time slots
+        
         agendaCitas.forEach(cita => {
             for (const index in horarioRecervado) {
-                // toma todos los marcadores del horario.
-                // take all the highlighters from the schedule.
+                // Itera sobre cada reserva y cada horario disponible
+                // Iterates over each reservation and each available time slot
                 if (horarioRecervado.hasOwnProperty(index)) {
                     let element = horarioRecervado[index];
+                    // Selecciona el elemento correspondiente a la reserva
+                    // Selects the element corresponding to the reservation
                     element = element.children[cita.dia];
-                    // por el id se pone el marcador en su respectivo elemento.
-                    // by the Id it put the highlighter in his element.
+                    // Destaca el elemento si corresponde a la reserva
+                    // Highlights the element if it corresponds to the reservation
                     if (element.id == cita.id) {
                         element.classList.add("activo");
                     }
                 }
             }
-        })
+        });
     }
     // imprime la disponibilidad the cada dia.
     // print how avalible is each day.
@@ -319,8 +325,7 @@ function cargarEventListener() {
                 marcador = e.target;
                 marcadorId = e.target.id;
                 hora = e.target.parentElement.querySelectorAll("th")[0].textContent;
-                dia = e.path[0].cellIndex;
-
+                dia = e.composedPath()[0].cellIndex;
                 UI.marcadorCitaEnHorario(marcadorId, marcador, dia, hora);
             }else {
                 if(e.target.parentElement.classList[1] == "activo"){
